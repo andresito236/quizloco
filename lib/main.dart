@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // Importaciones para Firebase
 import 'package:firebase_core/firebase_core.dart';
-import 'package:quizloco/pages/login_page.dart';
+import 'package:quizloco/pages/auth_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -19,13 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Quizloco',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Quizloco'),
-        ),
-        body: LoginPage(),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: AuthPage(),
     );
   }
 }

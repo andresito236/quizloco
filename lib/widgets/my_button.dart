@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// Botones para usar en la página de login/registro.
 
 class MyButton extends StatelessWidget {
 
