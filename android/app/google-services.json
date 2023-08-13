@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "510427022883",
+    "project_id": "quizloco-83770",
+    "storage_bucket": "quizloco-83770.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510427022883:android:be7e78d2fa6cc6b5a59396",
+        "android_client_info": {
+          "package_name": "com.example.quizloco"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510427022883-enmdr89a7vo4l0dmn52frjh84dhokuch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZKHaKVr6tQZO9dVmDcQA7ALNFlit2lC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510427022883-enmdr89a7vo4l0dmn52frjh84dhokuch.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
