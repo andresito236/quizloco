@@ -21,6 +21,8 @@ class LoginPage extends StatelessWidget {
       } else if (e.code == 'wrong-password') {
         print("Contraseña incorrecta.");
       }
+    } catch (e) {
+      print(e);
     }
   }
 
