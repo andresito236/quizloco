@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:quizloco/pages/home_page.dart';
-import 'package:quizloco/pages/login_page.dart';
+import 'package:quizloco/src/pages/home_page.dart';
+import 'package:quizloco/src/pages/login_page.dart';
 
 // Página donde se revisa si el usuario inició sesión o no.
 

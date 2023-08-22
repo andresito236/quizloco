@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:quizloco/widgets/my_button.dart';
-import 'package:quizloco/widgets/my_text_field.dart';
+import 'package:quizloco/src/widgets/my_button.dart';
+import 'package:quizloco/src/widgets/my_text_field.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});

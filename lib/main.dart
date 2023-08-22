@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 // Importaciones para Firebase
 import 'package:firebase_core/firebase_core.dart';
-import 'package:quizloco/pages/auth_page.dart';
-import 'firebase_options.dart';
+import 'package:quizloco/src/constants/routes.dart';
+import 'package:quizloco/src/pages/auth_page.dart';
+import 'config/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AuthPage(),
+      routes: routes,
     );
   }
 }
