@@ -11,5 +11,5 @@ final routes = {
   MyRoutes.login.name: (context) => LoginPage(),
   MyRoutes.home.name: (context) => HomePage(),
   MyRoutes.register.name: (context) => RegisterPage(),
-  MyRoutes.createTest.name: (context) => CreateTest(),
+  MyRoutes.createTest.name: (context) => CreateTestPage(),
 };
