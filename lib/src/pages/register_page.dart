@@ -37,7 +37,7 @@ class RegisterPage extends StatelessWidget {
       }
     } catch (e) {
       Fluttertoast.showToast(
-        msg: "${e.toString()}",
+        msg: "$e",
         gravity: ToastGravity.CENTER,
         toastLength: Toast.LENGTH_SHORT,
         backgroundColor: Colors.red
@@ -58,7 +58,7 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Icon(Icons.login, size: 100),
+          const Icon(Icons.login, size: 100),
           MyTextField(
             controller: userController,
             hintText: "Usuario",
