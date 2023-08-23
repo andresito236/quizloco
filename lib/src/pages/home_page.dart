@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quizloco/src/constants/routes.dart';
+import 'package:quizloco/src/widgets/my_button.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
@@ -19,10 +20,14 @@ class HomePage extends StatelessWidget {
       ]),
       body: Center(child: Column(
         children: [
-          Text("LOGGED IN asssss: " + (user?.email ?? "UNKNOWN"), ),
-          TextButton(onPressed: (){
+          Text("Bienvenido " + (user?.email ?? "UNKNOWN"), ),
+          MyButton(onTap: (){
             Navigator.pushNamed(context, MyRoutes.createTest.name);
-          }, child: Text('Create Test'))
+          }, message: "Crea un test"),
+          MyButton(onTap: () {
+            // Navigator.pushNamed(context, MyRoutes.)
+          }, message: "Mis tests",),
+          MyButton(onTap: () {}, message: "Todos los tests")
         ],
         )),
     );

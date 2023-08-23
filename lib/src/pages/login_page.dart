@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quizloco/src/constants/routes.dart';
 import 'package:quizloco/src/widgets/my_button.dart';
 import 'package:quizloco/src/widgets/my_text_field.dart';
 
@@ -19,6 +20,7 @@ class LoginPage extends StatelessWidget {
       if (e.code == 'user-not-found') {
         print("No se encontró el usuario.");
       } else if (e.code == 'wrong-password') {
+        
         print("Contraseña incorrecta.");
       }
     } catch (e) {
@@ -34,13 +36,19 @@ class LoginPage extends StatelessWidget {
           Icon(Icons.login, size: 100),
           MyTextField(
             controller: emailController,
-            hintText: "Email",
+            hintText: "Correo",
             obscureText: false),  
           MyTextField(controller: passwordController,
-          hintText: "Password", 
+          hintText: "Contraseña", 
           obscureText: true),
+          // Ingreso del usuario.
           MyButton(onTap: signUserIn,
-           message: "Sign in")
+           message: "Ingresar"),
+          //  Navegación hacia página de registro.
+          MyButton(onTap: () {
+            Navigator.pushNamed(context, MyRoutes.register.name);
+          },
+           message: "Registrarse")
         ],
       ),
     );
