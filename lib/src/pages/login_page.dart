@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quizloco/src/constants/routes.dart';
 import 'package:quizloco/src/widgets/my_button.dart';
 import 'package:quizloco/src/widgets/my_text_field.dart';
@@ -18,13 +19,35 @@ class LoginPage extends StatelessWidget {
       password: passwordController.text);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print("No se encontró el usuario.");
+        Fluttertoast.showToast(
+        msg: "No se encontró el usuario",
+        gravity: ToastGravity.CENTER,
+        toastLength: Toast.LENGTH_SHORT,
+        backgroundColor: Colors.red
+        );
       } else if (e.code == 'wrong-password') {
         
-        print("Contraseña incorrecta.");
+        Fluttertoast.showToast(
+        msg: "Contraseña incorrecta",
+        gravity: ToastGravity.CENTER,
+        toastLength: Toast.LENGTH_SHORT,
+        backgroundColor: Colors.red
+        );
+      } else {
+        Fluttertoast.showToast(
+        msg: "Las credenciales no son válidas",
+        gravity: ToastGravity.CENTER,
+        toastLength: Toast.LENGTH_SHORT,
+        backgroundColor: Colors.red
+        );
       }
     } catch (e) {
-      print(e);
+      Fluttertoast.showToast(
+        msg: "Ocurrió un error: ${e.toString()}",
+        gravity: ToastGravity.CENTER,
+        toastLength: Toast.LENGTH_SHORT,
+        backgroundColor: Colors.red
+        );
     }
   }
 

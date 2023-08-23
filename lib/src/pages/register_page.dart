@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quizloco/src/constants/routes.dart';
+import 'package:quizloco/src/utils/firebase_service.dart';
 import 'package:quizloco/src/widgets/my_button.dart';
 import 'package:quizloco/src/widgets/my_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,26 +16,34 @@ class RegisterPage extends StatelessWidget {
   final confirmPasswordController = TextEditingController();
 
   // Función para ingresar al usuario.
-  void register() async {
+    Future<bool> register() async {
     try {
-
+      // Revisar si confirmó su contraseña correctamente
       if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text
-        );
-        await addUser(userController.text, emailController.text); 
+        // Revisar si el usuario creado es único o no.
+        List user = await getUser(userController.text);      
+        if (user.isEmpty) {
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailController.text,
+            password: passwordController.text
+          );
+          await addUser(userController.text, emailController.text);
+          return true; 
+        } else {
+          throw Exception("Este usuario ya existe.");  
+        }     
       } else {
-        throw Exception("Las contraseñass no coinciden, verifique que sean iguales.");
+        throw Exception("Las contraseñas no coinciden, verifique que sean iguales.");
       }
     } catch (e) {
       Fluttertoast.showToast(
-        msg: "Error en la función de register: ${e.toString()}",
+        msg: "${e.toString()}",
         gravity: ToastGravity.CENTER,
         toastLength: Toast.LENGTH_SHORT,
         backgroundColor: Colors.red
       );
     }
+    return false;
   }
 
   Future addUser(String username, String email) async {
@@ -65,9 +74,11 @@ class RegisterPage extends StatelessWidget {
           hintText: "Confirmar contraseña", 
           obscureText: true),
           // Botón para registrarse
-          MyButton(onTap: () {
-              register();
-              Navigator.pushNamed(context, MyRoutes.home.name);
+          MyButton(onTap: () async {
+              if (await register()) {
+                Navigator.pushNamed(context, MyRoutes.home.name);
+              }
+              
             },
            message: "Registrarse"),
           MyButton(onTap: () {
