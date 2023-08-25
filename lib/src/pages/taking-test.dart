@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:quizloco/src/constants/routes.dart';
 import 'package:quizloco/src/controllers/answer_controller.dart';
 import 'package:quizloco/src/controllers/firestore_controller.dart';
 import 'package:quizloco/src/models/attempt_model.dart';
@@ -42,7 +43,8 @@ class _TakingTestPageState extends State<TakingTestPage> {
     }
   }
 
-  void submitTest() {
+  void submitTest() async {
+    String userId = await firestoreController.getUserId();
     double totalScore = 0;
     List<int?> scores =
         answercontroller.answers.map((answer) => answer.score).toList();
@@ -61,11 +63,27 @@ class _TakingTestPageState extends State<TakingTestPage> {
       attemptedAt: DateTime.now(),
       score: totalScore,
       testId: "mMQeWtUYRYszOLrlFnjI",
-      // userId: widget.user.userId,
+      userId: userId,
     );
+
+    try {
+      await firestoreController.addAttempt(attempt);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Test creado con éxito'),
+        ),
+      );
+      Navigator.pushNamed(context, MyRoutes.resultPage.name, arguments: {'totalScore': totalScore});
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $e'),
+        ),
+      );
+    }
   }
 
-  // firestoreController.addAttempt(attempt);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

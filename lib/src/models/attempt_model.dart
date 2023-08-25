@@ -6,4 +6,8 @@ class Attempt {
 
   Attempt({this.attemptedAt, this.score, this.testId, this.userId});
 
+  @override
+  String toString() {
+    return 'Attempt{attemptedAt: $attemptedAt, score: $score, testId: $testId, userId: $userId}';
+  }
 }

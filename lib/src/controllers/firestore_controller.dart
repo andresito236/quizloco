@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quizloco/src/models/attempt_model.dart';
 import 'package:quizloco/src/models/question_model.dart';
 import 'package:quizloco/src/models/test_model.dart';
@@ -72,16 +73,16 @@ class FirestoreController {
     }
   }
 
-  Future<List> getUser(String username) async {
-    List users = [];
+  Future<String> getUserId() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    User? user = _auth.currentUser;
 
-    QuerySnapshot queriedUsers =
-        await userCollection.where('username', isEqualTo: username).get();
-
-    queriedUsers.docs.forEach((document) {
-      users.add(document.data());
-    });
-    return users;
+    if (user != null) {
+      return user.uid;
+    } else {
+      print('No hay usuario autenticado');
+      return '';
+    }
   }
 
   Stream<QuerySnapshot> getTestsStream() {
