@@ -29,7 +29,10 @@ class HomePage extends StatelessWidget {
           }, message: "Mis tests",),
           MyButton(onTap: () {
             Navigator.pushNamed(context, MyRoutes.tests.name);
-          }, message: "Todos los tests")
+          }, message: "Todos los tests"),
+          MyButton(onTap: () {
+            Navigator.pushNamed(context, MyRoutes.takingTest.name);
+          }, message: "Hacer una prueba")
         ],
         )),
     );
