@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:quizloco/src/utils/firebase_service.dart';
 
-class TestsPage extends StatelessWidget {
-  const TestsPage({super.key});
+import '../utils/firebase_service.dart';
+
+class MyTestsPage extends StatelessWidget {
+  const MyTestsPage({super.key, required this.userId});
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: getTests(),
+        future: getTestsByUserId(userId),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
           
           // Mostrar barra circular mientras carga

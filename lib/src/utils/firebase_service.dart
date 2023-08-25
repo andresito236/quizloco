@@ -25,3 +25,15 @@ Future<List> getTests() async {
 
   return tests;
 }
+
+Future<List> getTestsByUserId(String userId) async {
+  List tests = [];
+  CollectionReference userCollection = db.collection('test');
+  QuerySnapshot queriedTests = await userCollection.where('user_id', isEqualTo: userId).get();
+
+  queriedTests.docs.forEach((document) {
+    tests.add(document.data());
+  });
+
+  return tests;
+}
