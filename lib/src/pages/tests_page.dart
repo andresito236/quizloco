@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizloco/src/constants/routes.dart';
 import 'package:quizloco/src/utils/app_bar_maker.dart';
 import 'package:quizloco/src/utils/firebase_service.dart';
 
@@ -35,6 +36,12 @@ class TestsPage extends StatelessWidget {
               return ListTile(
                 title: Text(snapshot.data![index]['name'] ?? "test-x"),
                 subtitle: Text(snapshot.data![index]['description'] ?? "test-x-description"),
+                trailing: const Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.pushNamed(context, MyRoutes.takingTest.name, arguments: {
+                    'testId' : snapshot.data![index]['id']
+                  });
+                }
               );
             }
           );

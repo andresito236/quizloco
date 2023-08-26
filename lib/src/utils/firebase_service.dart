@@ -48,9 +48,10 @@ Future<List> getTests() async {
   List tests = [];
   CollectionReference testCollection = db.collection('test');
   QuerySnapshot queriedTests = await testCollection.get();
-
   queriedTests.docs.forEach((document) {
-    tests.add(document.data());
+    Map<String, dynamic> testData = document.data() as Map<String, dynamic>;
+    testData['id'] = document.id;
+    tests.add(testData);
   });
 
   return tests;
@@ -63,7 +64,9 @@ Future<List> getTestsByUserId(String userId) async {
       await testCollection.where('user_id', isEqualTo: userId).get();
 
   queriedTests.docs.forEach((document) {
-    tests.add(document.data());
+    Map<String, dynamic> testData = document.data() as Map<String, dynamic>;
+    testData['id'] = document.id;
+    tests.add(testData);
   });
 
   return tests;
