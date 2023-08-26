@@ -9,13 +9,14 @@ import 'package:quizloco/src/pages/result_page.dart';
 import 'package:quizloco/src/pages/taking-test.dart';
 import 'package:quizloco/src/pages/tests_page.dart';
 
-enum MyRoutes { login, home, register, createTest, tests, takingTest, resultPage}
+enum MyRoutes { login, home, register, createTest, tests, takingTest, resultPage, myTests}
 
 final routes = {
   MyRoutes.login.name: (context) => LoginPage(),
   MyRoutes.home.name: (context) => HomePage(),
   MyRoutes.register.name: (context) => RegisterPage(),
   MyRoutes.createTest.name: (context) => CreateTestPage(),
+  MyRoutes.myTests.name: (context) => MyTestsPage(),
   MyRoutes.tests.name: (context) => TestsPage(),
   MyRoutes.takingTest.name: (context) => TakingTestPage(),
   MyRoutes.resultPage.name: (context) => ResultPage(),

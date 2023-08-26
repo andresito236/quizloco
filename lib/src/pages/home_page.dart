@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
             Navigator.pushNamed(context, MyRoutes.createTest.name);
           }, message: "Crea un test"),
           MyButton(onTap: () {
-            // Navigator.pushNamed(context, MyRoutes.)
+            Navigator.pushNamed(context, MyRoutes.myTests.name);
           }, message: "Mis tests",),
           MyButton(onTap: () {
             Navigator.pushNamed(context, MyRoutes.tests.name);
