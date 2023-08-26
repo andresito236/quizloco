@@ -15,24 +15,23 @@ Future<List> getUser(String username) async {
   return users;
 }
 
-Future<List> getUserByEmail(String email) async {
+Future<String> getUserIdByEmail(String email) async {
   List user = [];
   CollectionReference userCollection = db.collection('user');
   QuerySnapshot queriedUsers =
       await userCollection.where('email', isEqualTo: email).get();
   queriedUsers.docs.forEach((document) {
-    user.add(document.data());
+    user.add(document.reference.id);
   });
-  return user;
+  return user.isNotEmpty ? user[0] : "";
 }
 
-String? currentUserEmail() {
+String currentUserEmail() {
   String? email = "";
-  FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    if (user != null) {
-      email = user.email;
-    }
-  });
+  User? user = FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    return user.email ?? "";
+  }
   return email;
 }
 
@@ -58,5 +57,20 @@ Future<List> getTestsByUserId(String userId) async {
     tests.add(document.data());
   });
 
+  return tests;
+}
+
+Future<List> getCurrentUserTests() async {
+  List tests = [];
+  String email = currentUserEmail();
+  print("Emal in getCurrentUserTest: $email");
+  if (email.isNotEmpty) {
+    String userId = await getUserIdByEmail(email);
+    if (userId.isNotEmpty) {
+      print(userId);
+      tests = await getTestsByUserId(userId);
+    }
+  }
+  print(tests);
   return tests;
 }

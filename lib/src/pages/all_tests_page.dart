@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quizloco/src/utils/firebase_service.dart';
 
-class TestsPage extends StatelessWidget {
-  const TestsPage({super.key});
+class AllTestsPage extends StatelessWidget {
+  const AllTestsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

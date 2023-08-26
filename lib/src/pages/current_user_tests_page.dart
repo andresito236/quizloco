@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 
 import '../utils/firebase_service.dart';
 
-class MyTestsPage extends StatelessWidget {
-  const MyTestsPage({super.key});
+class CurrentUserTestsPage extends StatelessWidget {
+  const CurrentUserTestsPage({super.key});
+
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: FutureBuilder(
-        future: getTests(),
+        future: getCurrentUserTests(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
          
           // Mostrar barra circular mientras carga
