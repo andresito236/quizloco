@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quizloco/src/constants/routes.dart';
+import 'package:quizloco/src/utils/app_bar_maker.dart';
 import 'package:quizloco/src/widgets/my_button.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,16 +9,11 @@ class HomePage extends StatelessWidget {
 
   final user = FirebaseAuth.instance.currentUser;
 
-  void signUserOut() {
-    FirebaseAuth.instance.signOut();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [
-        IconButton(onPressed: signUserOut, icon: Icon(Icons.logout))
-      ]),
+      appBar: appBarMaker(context),
       body: Center(child: Column(
         children: [
           Text("Bienvenido " + (user?.email ?? "UNKNOWN"), ),

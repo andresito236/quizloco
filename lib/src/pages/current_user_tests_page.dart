@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quizloco/src/utils/app_bar_maker.dart';
 
 import '../utils/firebase_service.dart';
 
@@ -11,7 +12,7 @@ class CurrentUserTestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: appBarMaker(context, title: "Mis tests"),
       body: FutureBuilder(
         future: getCurrentUserTests(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {

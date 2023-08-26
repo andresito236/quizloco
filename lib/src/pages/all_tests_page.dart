@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizloco/src/utils/app_bar_maker.dart';
 import 'package:quizloco/src/utils/firebase_service.dart';
 
 class AllTestsPage extends StatelessWidget {
@@ -7,7 +8,7 @@ class AllTestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: appBarMaker(context, title: "Todos los tests"),
       body: FutureBuilder(
         future: getTests(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
