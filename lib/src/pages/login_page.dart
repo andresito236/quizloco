@@ -6,15 +6,25 @@ import 'package:quizloco/src/utils/custom_toast.dart';
 import 'package:quizloco/src/widgets/my_button.dart';
 import 'package:quizloco/src/widgets/my_text_field.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+  bool isLoading = false;
 
   // Función para ingresar al usuario.
   void signUserIn() async {
     try {
+      setState(() {
+        isLoading = true;
+      });
       await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: emailController.text, 
       password: passwordController.text);
@@ -46,13 +56,19 @@ class LoginPage extends StatelessWidget {
           hintText: "Contraseña", 
           obscureText: true),
           // Ingreso del usuario.
-          MyButton(onTap: signUserIn,
+          MyButton(onTap: () async {
+            signUserIn();
+            setState(() {
+              isLoading = false;
+            });
+          },
            message: "Ingresar"),
           //  Navegación hacia página de registro.
           MyButton(onTap: () {
             Navigator.pushNamed(context, MyRoutes.register.name);
           },
-           message: "Registrarse")
+           message: "Registrarse"),
+           if (isLoading) const Center(child: SizedBox(width: 80, height: 80, child: CircularProgressIndicator()),)
         ],
       ),
     );

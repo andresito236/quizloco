@@ -8,17 +8,30 @@ import 'package:quizloco/src/widgets/my_button.dart';
 import 'package:quizloco/src/widgets/my_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
-  
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final userController = TextEditingController();
+
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
   final confirmPasswordController = TextEditingController();
+
+  bool isLoading = false;
 
   // Función para ingresar al usuario.
     Future<bool> register() async {
     try {
+      setState(() {
+        isLoading = true;
+      });
       // Revisar si confirmó su contraseña correctamente
       if (passwordController.text == confirmPasswordController.text) {
         // Revisar si el usuario creado es único o no.
@@ -71,16 +84,22 @@ class RegisterPage extends StatelessWidget {
           obscureText: true),
           // Botón para registrarse
           MyButton(onTap: () async {
+              
               if (await register()) {
                 Navigator.pushNamed(context, MyRoutes.home.name);
               }
+
+              setState(() {
+                isLoading = false;
+              });
               
             },
            message: "Registrarse"),
           MyButton(onTap: () {
             Navigator.pushNamed(context, MyRoutes.login.name);
           },
-            message: "Regresar",)
+            message: "Regresar",),
+          if (isLoading) const Center(child: SizedBox(width: 80, height: 80, child: CircularProgressIndicator()),),
         ],
       ),
     );

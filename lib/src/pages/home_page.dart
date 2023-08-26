@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarMaker(context),
+      appBar: appBarMaker(context, title: "Inicio"),
       body: Center(child: Column(
         children: [
           Text("Bienvenido " + (user?.email ?? "UNKNOWN"), ),

@@ -16,21 +16,18 @@ class CurrentUserTestsPage extends StatelessWidget {
       body: FutureBuilder(
         future: getCurrentUserTests(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-         
           // Mostrar barra circular mientras carga
           if (!snapshot.hasData) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-
           // Revisar que haya conexión
           if (snapshot.connectionState == ConnectionState.none) {
             return const Center(
               child: Text('No hay conexión'),
             );
           }
-
           return ListView.builder(
               itemCount: snapshot.data?.length,
               itemBuilder: (context, index) {
