@@ -7,7 +7,7 @@ class MyButton extends StatelessWidget {
   final Function()? onTap;
   final String message;
   
-  const MyButton({
+  MyButton({
     super.key,
     required this.onTap,
     required this.message,
@@ -18,10 +18,16 @@ class MyButton extends StatelessWidget {
     return GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.all(25),
-          margin: const EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+          width: 200,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: Colors.black,
+              width: 0.5
+            ),
+            color: Colors.green[100]
           ),
           child: Center(
             child: Text(message),

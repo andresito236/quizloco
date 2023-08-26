@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:quizloco/src/constants/routes.dart';
+import 'package:quizloco/src/utils/custom_toast.dart';
 import 'package:quizloco/src/widgets/my_button.dart';
 import 'package:quizloco/src/widgets/my_text_field.dart';
 
@@ -18,36 +19,16 @@ class LoginPage extends StatelessWidget {
       email: emailController.text, 
       password: passwordController.text);
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Fluttertoast.showToast(
-        msg: "No se encontró el usuario",
-        gravity: ToastGravity.CENTER,
-        toastLength: Toast.LENGTH_SHORT,
-        backgroundColor: Colors.red
-        );
-      } else if (e.code == 'wrong-password') {
-        
-        Fluttertoast.showToast(
-        msg: "Contraseña incorrecta",
-        gravity: ToastGravity.CENTER,
-        toastLength: Toast.LENGTH_SHORT,
-        backgroundColor: Colors.red
-        );
-      } else {
-        Fluttertoast.showToast(
-        msg: "Las credenciales no son válidas",
-        gravity: ToastGravity.CENTER,
-        toastLength: Toast.LENGTH_SHORT,
-        backgroundColor: Colors.red
-        );
+      final String message;
+      switch (e.code) {
+        case 'user-not-found': message = 'No se encontró el usuario'; break;
+        case 'wrong-password': message = 'Contraseña incorrecta'; break;
+        default: message = 'Las credenciales no son válidas';
       }
+      showCustomToast(message);
+  
     } catch (e) {
-      Fluttertoast.showToast(
-        msg: "Ocurrió un error: ${e.toString()}",
-        gravity: ToastGravity.CENTER,
-        toastLength: Toast.LENGTH_SHORT,
-        backgroundColor: Colors.red
-        );
+      showCustomToast("Ocurrió un error: $e");
     }
   }
 

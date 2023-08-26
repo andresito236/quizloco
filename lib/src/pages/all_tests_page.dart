@@ -7,6 +7,7 @@ class AllTestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: FutureBuilder(
         future: getTests(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {

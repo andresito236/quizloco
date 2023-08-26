@@ -26,13 +26,22 @@ Future<String> getUserIdByEmail(String email) async {
   return user.isNotEmpty ? user[0] : "";
 }
 
-String currentUserEmail() {
+String getCurrentUserEmail() {
   String? email = "";
   User? user = FirebaseAuth.instance.currentUser;
   if (user != null) {
     return user.email ?? "";
   }
   return email;
+}
+
+String getCurrentUserId() {
+  String id = "";
+  User? user = FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    return user.uid;
+  }
+  return id;
 }
 
 Future<List> getTests() async {
@@ -49,9 +58,9 @@ Future<List> getTests() async {
 
 Future<List> getTestsByUserId(String userId) async {
   List tests = [];
-  CollectionReference userCollection = db.collection('test');
+  CollectionReference testCollection = db.collection('test');
   QuerySnapshot queriedTests =
-      await userCollection.where('user_id', isEqualTo: userId).get();
+      await testCollection.where('user_id', isEqualTo: userId).get();
 
   queriedTests.docs.forEach((document) {
     tests.add(document.data());
@@ -62,15 +71,7 @@ Future<List> getTestsByUserId(String userId) async {
 
 Future<List> getCurrentUserTests() async {
   List tests = [];
-  String email = currentUserEmail();
-  print("Emal in getCurrentUserTest: $email");
-  if (email.isNotEmpty) {
-    String userId = await getUserIdByEmail(email);
-    if (userId.isNotEmpty) {
-      print(userId);
-      tests = await getTestsByUserId(userId);
-    }
-  }
-  print(tests);
+  String userId = getCurrentUserId();
+  tests = await getTestsByUserId(userId);
   return tests;
 }

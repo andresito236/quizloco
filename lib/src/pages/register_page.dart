@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quizloco/src/constants/routes.dart';
+import 'package:quizloco/src/utils/custom_toast.dart';
 import 'package:quizloco/src/utils/firebase_service.dart';
 import 'package:quizloco/src/widgets/my_button.dart';
 import 'package:quizloco/src/widgets/my_text_field.dart';
@@ -27,7 +28,7 @@ class RegisterPage extends StatelessWidget {
             email: emailController.text,
             password: passwordController.text
           );
-          await addUser(userController.text, emailController.text);
+          await addUser(userController.text, emailController.text, getCurrentUserId());
           return true; 
         } else {
           throw Exception("Este usuario ya existe.");  
@@ -36,18 +37,13 @@ class RegisterPage extends StatelessWidget {
         throw Exception("Las contraseñas no coinciden, verifique que sean iguales.");
       }
     } catch (e) {
-      Fluttertoast.showToast(
-        msg: "$e",
-        gravity: ToastGravity.CENTER,
-        toastLength: Toast.LENGTH_SHORT,
-        backgroundColor: Colors.red
-      );
+      showCustomToast("$e");
     }
     return false;
   }
 
-  Future addUser(String username, String email) async {
-    await FirebaseFirestore.instance.collection("user").add({
+  Future addUser(String username, String email, String id) async {
+    await FirebaseFirestore.instance.collection("user").doc(id).set({
       "username" : username,
       "email": email,
     });
