@@ -45,31 +45,33 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Icon(Icons.login, size: 100),
-          MyTextField(
-            controller: emailController,
-            hintText: "Correo",
-            obscureText: false),  
-          MyTextField(controller: passwordController,
-          hintText: "Contraseña", 
-          obscureText: true),
-          // Ingreso del usuario.
-          MyButton(onTap: () async {
-            signUserIn();
-            setState(() {
-              isLoading = false;
-            });
-          },
-           message: "Ingresar"),
-          //  Navegación hacia página de registro.
-          MyButton(onTap: () {
-            Navigator.pushNamed(context, MyRoutes.register.name);
-          },
-           message: "Registrarse"),
-           if (isLoading) const Center(child: SizedBox(width: 80, height: 80, child: CircularProgressIndicator()),)
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Icon(Icons.login, size: 100),
+            MyTextField(
+              controller: emailController,
+              hintText: "Correo",
+              obscureText: false),  
+            MyTextField(controller: passwordController,
+            hintText: "Contraseña", 
+            obscureText: true),
+            // Ingreso del usuario.
+            MyButton(onTap: () async {
+              signUserIn();
+              setState(() {
+                isLoading = false;
+              });
+            },
+             message: "Ingresar"),
+            //  Navegación hacia página de registro.
+            MyButton(onTap: () {
+              Navigator.pushNamed(context, MyRoutes.register.name);
+            },
+             message: "Registrarse"),
+             if (isLoading) const Center(child: SizedBox(width: 80, height: 80, child: CircularProgressIndicator()),)
+          ],
+        ),
       ),
     );
   }

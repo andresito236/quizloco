@@ -65,42 +65,43 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const Icon(Icons.login, size: 100),
-          MyTextField(
-            controller: userController,
-            hintText: "Usuario",
-            obscureText: false),
-          MyTextField(
-            controller: emailController,
-            hintText: "Email",
-            obscureText: false),  
-          MyTextField(controller: passwordController,
-          hintText: "Contraseña", 
-          obscureText: true),
-          MyTextField(controller: confirmPasswordController,
-          hintText: "Confirmar contraseña", 
-          obscureText: true),
-          // Botón para registrarse
-          MyButton(onTap: () async {
-              
-              if (await register()) {
-                Navigator.pushNamed(context, MyRoutes.home.name);
-              }
-
-              setState(() {
-                isLoading = false;
-              });
-              
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Icon(Icons.login, size: 100),
+            MyTextField(
+              controller: userController,
+              hintText: "Usuario",
+              obscureText: false),
+            MyTextField(
+              controller: emailController,
+              hintText: "Email",
+              obscureText: false),  
+            MyTextField(controller: passwordController,
+            hintText: "Contraseña", 
+            obscureText: true),
+            MyTextField(controller: confirmPasswordController,
+            hintText: "Confirmar contraseña", 
+            obscureText: true),
+            // Botón para registrarse
+            MyButton(onTap: () async {
+                
+                if (await register()) {
+                  Navigator.pushNamed(context, MyRoutes.home.name);
+                }
+                setState(() {
+                  isLoading = false;
+                });
+                
+              },
+             message: "Registrarse"),
+            MyButton(onTap: () {
+              Navigator.pushNamed(context, MyRoutes.login.name);
             },
-           message: "Registrarse"),
-          MyButton(onTap: () {
-            Navigator.pushNamed(context, MyRoutes.login.name);
-          },
-            message: "Regresar",),
-          if (isLoading) const Center(child: SizedBox(width: 80, height: 80, child: CircularProgressIndicator()),),
-        ],
+              message: "Regresar",),
+            if (isLoading) const Center(child: SizedBox(width: 80, height: 80, child: CircularProgressIndicator()),),
+          ],
+        ),
       ),
     );
   }

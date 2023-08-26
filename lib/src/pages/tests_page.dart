@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:quizloco/src/utils/app_bar_maker.dart';
 import 'package:quizloco/src/utils/firebase_service.dart';
 
-class AllTestsPage extends StatelessWidget {
-  const AllTestsPage({super.key});
+class TestsPage extends StatelessWidget {
+  TestsPage({super.key, required this.isCurrentUser});
+
+  final bool isCurrentUser;
+  Function testGetter = () {};
 
   @override
   Widget build(BuildContext context) {
+    testGetter = isCurrentUser ? getCurrentUserTests : getTests; 
     return Scaffold(
       appBar: appBarMaker(context, title: "Todos los tests"),
       body: FutureBuilder(
-        future: getTests(),
+        future: testGetter(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
           
           // Mostrar barra circular mientras carga
