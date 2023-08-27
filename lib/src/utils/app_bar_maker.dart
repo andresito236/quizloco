@@ -42,9 +42,12 @@ Future<String?> showConfirmationModal(BuildContext context) async {
   }
 
 AppBar appBarMaker(BuildContext context, {String title = ""}) {
+  final user = FirebaseAuth.instance.currentUser;
+
   return AppBar(
     title: Text(title),
     actions: [
+      Text('${user?.email}'),
         IconButton(onPressed: () {
           signUserOut(context);
         }, icon: Icon(Icons.logout))

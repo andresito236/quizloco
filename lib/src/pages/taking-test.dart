@@ -132,9 +132,15 @@ class _TakingTestPageState extends State<TakingTestPage> {
                 itemCount: test?.questions.length ?? 0,
                 itemBuilder: (context, index) {
                   final question = test?.questions[index];
-                  return QuestionWidget(
-                    question: question!,
-                    answerController: answercontroller,
+                  return Column(
+                    children: [
+                      const SizedBox(height: 12),
+                      Text('Pregunta ${index+1}'),
+                      QuestionWidget(
+                        question: question!,
+                        answerController: answercontroller,
+                      ),
+                    ],
                   );
                 },
               ),
