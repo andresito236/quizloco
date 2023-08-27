@@ -44,6 +44,9 @@ class _CreateTestPageState extends State<CreateTestPage> {
         ),
       );
       testController.onClose();
+      setState(() {
+        isLoading = false;
+      });
       Navigator.pushNamed(context, MyRoutes.home.name);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

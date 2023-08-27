@@ -61,7 +61,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(10),
-      color: _isQuestionEnabled ? Color.fromARGB(255, 149, 187, 225) : Colors.transparent,
+      color: _isQuestionEnabled ? Color.fromARGB(255, 200, 220, 239) : Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(

@@ -15,8 +15,7 @@ class QuestionForm extends StatefulWidget {
 }
 
 class _QuestionFormState extends State<QuestionForm> {
-  final GlobalKey<FormState> _formKey =
-      GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _questionController = TextEditingController();
   String _selectedQuestionType = 'Verdadero/Falso';
   int _selectedOptionIndex = 1;
@@ -33,13 +32,19 @@ class _QuestionFormState extends State<QuestionForm> {
       newQuestion.answers =
           _selectedOptionIndex == 0 ? ['falso'] : ['verdadero'];
     } else if (_selectedQuestionType == 'Respuesta Unica') {
-      newQuestion.options = _options;
       newQuestion.answers =
           _selectedOptionIndex >= 0 ? [_options[_selectedOptionIndex]] : [];
+      newQuestion.options = [];
+      for (int i = 0; i < _options.length; i++) {
+        newQuestion.options?.add(_options[i]);
+      }
     } else if (_selectedQuestionType == 'Seleccion Multiple') {
-      newQuestion.options = _options;
       newQuestion.answers = [];
 
+      newQuestion.options = [];
+      for (int i = 0; i < _options.length; i++) {
+        newQuestion.options?.add(_options[i]);
+      }
       for (int i = 0; i < _correctAnswers.length; i++) {
         if (_correctAnswers[i]) {
           newQuestion.answers?.add(_options[i]);
@@ -49,6 +54,7 @@ class _QuestionFormState extends State<QuestionForm> {
 
     widget.testController.questions.add(newQuestion);
 
+    newQuestion = Question();
     _questionController.text = '';
   }
 
@@ -93,7 +99,11 @@ class _QuestionFormState extends State<QuestionForm> {
                 decoration:
                     const InputDecoration(labelText: 'Tipo de Pregunta'),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 14.0),
+              Text(
+                'Respuesta Correcta:',
+                style: const TextStyle(fontSize: 14.0),
+              ),
               if (_selectedQuestionType == 'Verdadero/Falso')
                 Column(
                   children: [
@@ -128,9 +138,18 @@ class _QuestionFormState extends State<QuestionForm> {
                         Expanded(
                           flex: 3,
                           child: TextFormField(
-                            initialValue: _options[index],
+                            decoration: InputDecoration(
+                                labelText: 'Opcion ${index + 1}'),
+                            validator: (value) {
+                              if (value?.isEmpty ?? true) {
+                                return 'Por favor, ingresa una opcion';
+                              }
+                              return null;
+                            },
                             onChanged: (value) {
-                              _options[index] = value;
+                              setState(() {
+                                _options[index] = value;
+                              });
                             },
                           ),
                         ),
@@ -161,7 +180,9 @@ class _QuestionFormState extends State<QuestionForm> {
                           child: TextFormField(
                             initialValue: _options[index],
                             onChanged: (value) {
-                              _options[index] = value;
+                              setState(() {
+                                _options[index] = value;
+                              });
                             },
                           ),
                         ),

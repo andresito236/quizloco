@@ -54,12 +54,10 @@ class _TakingTestPageState extends State<TakingTestPage> {
 
     totalScore = (totalScore / scores.length) * 100;
 
-    print(totalScore);
-
     final attempt = Attempt(
       attemptedAt: DateTime.now(),
       score: totalScore,
-      testId: "mMQeWtUYRYszOLrlFnjI",
+      testId: testId,
       userId: userId,
     );
 
@@ -81,9 +79,10 @@ class _TakingTestPageState extends State<TakingTestPage> {
     }
   }
 
-  @override
+    @override
   Widget build(BuildContext context) {
-    final Map<String, dynamic>? params = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final Map<String, dynamic>? params =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
 
     setState(() {
       testId = params!['testId'];
@@ -95,42 +94,41 @@ class _TakingTestPageState extends State<TakingTestPage> {
       appBar: AppBar(
         title: Text('Taking Test'),
       ),
-      body: Center(
-        child: test == null
-            ? const CircularProgressIndicator()
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    test!.name,
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    test!.description,
-                    style: const TextStyle(fontSize: 15),
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: test!.questions.length,
-                      itemBuilder: (context, index) {
-                        final question = test!.questions[index];
-                        return QuestionWidget(
-                          question: question,
-                          answerController: answercontroller,
-                        );
-                      },
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      submitTest();
-                    },
-                    child: Text('Submit Test'),
-                  ),
-                ],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              test == null ? '' : test!.name,
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              test == null ? '' : test!.description,
+              style: const TextStyle(fontSize: 15),
+            ),
+            const SizedBox(height: 24),
+            Expanded(
+              child: ListView.builder(
+                itemCount: test?.questions.length ?? 0,
+                itemBuilder: (context, index) {
+                  final question = test?.questions[index];
+                  return QuestionWidget(
+                    question: question!,
+                    answerController: answercontroller,
+                  );
+                },
               ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                submitTest();
+              },
+              child: Text('Submit Test'),
+            ),
+          ],
+        ),
       ),
     );
   }
