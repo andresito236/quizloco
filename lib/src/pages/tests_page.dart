@@ -14,7 +14,7 @@ class TestsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     testGetter = isCurrentUser ? getCurrentUserTests : getTests; 
     return Scaffold(
-      appBar: appBarMaker(context, title: "Todos los tests"),
+      appBar: appBarMaker(context, title: isCurrentUser ? "Mis tests" : "Todos los tests"),
       body: FutureBuilder(
         future: testGetter(),
         builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
@@ -31,7 +31,7 @@ class TestsPage extends StatelessWidget {
             );
           }
 
-          if(snapshot.data?.length == 0) {
+          if(snapshot.data?.length == 0 && isCurrentUser) {
             return Center(
               child: ElevatedButton(onPressed: () {
                 Navigator.pushNamed(context, MyRoutes.createTest.name);
@@ -43,13 +43,21 @@ class TestsPage extends StatelessWidget {
             itemCount: snapshot.data?.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(snapshot.data![index]['name'] ?? "test-x"),
-                subtitle: Text(snapshot.data![index]['description'] ?? "test-x-description"),
+                title: Text(snapshot.data![index]['name'] ?? "Error"),
+                subtitle: Text(snapshot.data![index]['description'] ?? "Error"),
                 trailing: const Icon(Icons.arrow_forward),
                 onTap: () {
-                  Navigator.pushNamed(context, MyRoutes.takingTest.name, arguments: {
-                    'testId' : snapshot.data![index]['id']
-                  });
+                  if (isCurrentUser) {
+                    Navigator.pushNamed(context, MyRoutes.testAttempts.name, arguments: {
+                      'testId' : snapshot.data![index]['id'],
+                      'testName' : snapshot.data![index]['name']
+                    });
+                  } else {
+                    Navigator.pushNamed(context, MyRoutes.takingTest.name, arguments: {
+                      'testId' : snapshot.data![index]['id']
+                    });
+                  }
+                  
                 }
               );
             }
