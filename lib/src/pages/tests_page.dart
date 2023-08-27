@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quizloco/src/constants/routes.dart';
 import 'package:quizloco/src/utils/app_bar_maker.dart';
 import 'package:quizloco/src/utils/firebase_service.dart';
+import 'package:quizloco/src/widgets/my_button.dart';
 
 class TestsPage extends StatelessWidget {
   TestsPage({super.key, required this.isCurrentUser});
@@ -27,6 +28,14 @@ class TestsPage extends StatelessWidget {
           if(snapshot.connectionState == ConnectionState.none) {
             return const Center(
               child: Text('No hay conexión'),
+            );
+          }
+
+          if(snapshot.data?.length == 0) {
+            return Center(
+              child: ElevatedButton(onPressed: () {
+                Navigator.pushNamed(context, MyRoutes.createTest.name);
+              }, child: const Text('Crea un test!'))
             );
           }
 
