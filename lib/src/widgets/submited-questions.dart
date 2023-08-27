@@ -18,14 +18,15 @@ class SubmittedQuestions extends StatelessWidget {
             color: Color.fromARGB(54, 75, 93, 200),
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
                   Text('Pregunta: ${question.question}'),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Tipo: ${question.type}'),
                   Text("Respuesta: ${question.answers?.join(' ')}"),
