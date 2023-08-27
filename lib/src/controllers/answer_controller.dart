@@ -9,4 +9,9 @@ class AnswerController extends GetxController {
 
   set answers(List<Answer>  value) => _answers.value = value;
 
+  @override
+  void onClose() {
+    _answers.value = [];
+    super.onClose();
+  }
 }

@@ -29,57 +29,74 @@ class _TakingTestPageState extends State<TakingTestPage> {
   }
 
   Future<void> _fetchTest() async {
-    Test fetchedTest =
-        await firestoreController.getTest(testId);
-      setState(() {
-        test = fetchedTest;
-        userAnswers = List.generate(
-          test!.questions.length,
-          (_) => null,
-        );
-      });
+    Test fetchedTest = await firestoreController.getTest(testId);
+    setState(() {
+      test = fetchedTest;
+      userAnswers = List.generate(
+        test!.questions.length,
+        (_) => null,
+      );
+    });
   }
 
   void submitTest() async {
-    String userId = await firestoreController.getUserId();
-    double totalScore = 0;
-    List<int?> scores =
-        answercontroller.answers.map((answer) => answer.score).toList();
-
-    for (int i = 0; i < scores.length; i++) {
-      if (scores[i] == 1) {
-        totalScore++;
-      }
-    }
-
-    totalScore = (totalScore / scores.length) * 100;
-
-    final attempt = Attempt(
-      attemptedAt: DateTime.now(),
-      score: totalScore,
-      testId: testId,
-      userId: userId,
-    );
-
-    try {
-      await firestoreController.addAttempt(attempt);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Test creado con éxito'),
-        ),
-      );
-      Navigator.pushNamed(context, MyRoutes.resultPage.name, arguments: {'totalScore': totalScore});
-    } catch (e) {
+    print(answercontroller.answers.length);
+    print(test!.questions.length);
+    if (answercontroller.answers.length != test!.questions.length) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Error: $e'),
-        ),
+            content: Text(
+                'Tienes que enviar todas las respuestas antes de continuar'),
+            duration: Duration(seconds: 2),
+            backgroundColor: Colors.red,
+            action: SnackBarAction(label: 'OK', onPressed: () {}),
+            ),
       );
+    } else {
+      String userId = await firestoreController.getUserId();
+      double totalScore = 0;
+      List<int?> scores =
+          answercontroller.answers.map((answer) => answer.score).toList();
+
+      for (int i = 0; i < scores.length; i++) {
+        if (scores[i] == 1) {
+          totalScore++;
+        }
+      }
+
+      totalScore = (totalScore / scores.length) * 100;
+
+      final attempt = Attempt(
+        attemptedAt: DateTime.now(),
+        score: totalScore,
+        testId: testId,
+        userId: userId,
+      );
+
+      try {
+        await firestoreController.addAttempt(attempt);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Intento realizado!'),
+          ),
+        );
+
+        answercontroller.onClose();
+
+        Navigator.pushNamed(context, MyRoutes.resultPage.name,
+            arguments: {'totalScore': totalScore});
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $e'),
+          ),
+        );
+      }
     }
   }
 
-    @override
+  @override
   Widget build(BuildContext context) {
     final Map<String, dynamic>? params =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
@@ -125,7 +142,7 @@ class _TakingTestPageState extends State<TakingTestPage> {
               onPressed: () {
                 submitTest();
               },
-              child: Text('Submit Test'),
+              child: Text('Terminar Intento'),
             ),
           ],
         ),
