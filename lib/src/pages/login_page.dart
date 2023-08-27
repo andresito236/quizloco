@@ -26,17 +26,20 @@ class _LoginPageState extends State<LoginPage> {
         isLoading = true;
       });
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text, 
-      password: passwordController.text);
+          email: emailController.text, password: passwordController.text);
     } on FirebaseAuthException catch (e) {
       final String message;
       switch (e.code) {
-        case 'user-not-found': message = 'No se encontró el usuario'; break;
-        case 'wrong-password': message = 'Contraseña incorrecta'; break;
-        default: message = 'Las credenciales no son válidas';
+        case 'user-not-found':
+          message = 'No se encontró el usuario';
+          break;
+        case 'wrong-password':
+          message = 'Contraseña incorrecta';
+          break;
+        default:
+          message = 'Las credenciales no son válidas';
       }
       showCustomToast(message);
-  
     } catch (e) {
       showCustomToast("Ocurrió un error: $e");
     }
@@ -45,32 +48,55 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Icon(Icons.login, size: 100),
-            MyTextField(
-              controller: emailController,
-              hintText: "Correo",
-              obscureText: false),  
-            MyTextField(controller: passwordController,
-            hintText: "Contraseña", 
-            obscureText: true),
-            // Ingreso del usuario.
-            MyButton(onTap: () async {
-              signUserIn();
-              setState(() {
-                isLoading = false;
-              });
-            },
-             message: "Ingresar"),
-            //  Navegación hacia página de registro.
-            MyButton(onTap: () {
-              Navigator.pushNamed(context, MyRoutes.register.name);
-            },
-             message: "Registrarse"),
-             if (isLoading) const Center(child: SizedBox(width: 80, height: 80, child: CircularProgressIndicator()),)
-          ],
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Image(image: AssetImage('assets/test-icon.png'),),
+              MyTextField(
+                  controller: emailController,
+                  hintText: "Correo",
+                  obscureText: false),
+              MyTextField(
+                  controller: passwordController,
+                  hintText: "Contraseña",
+                  obscureText: true),
+              // Ingreso del usuario.
+              SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                  onPressed: () async {
+                    signUserIn();
+                    setState(() {
+                      isLoading = false;
+                    });
+                  },
+                  child: Text('Ingresar'),
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(320, 40),
+                  )),
+              //  Navegación hacia página de registro.
+              SizedBox(
+                height: 20,
+              ),
+              const Text("¿No tienes cuenta aún? Haz click en registrarse."),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, MyRoutes.register.name);
+                },
+                child: Text("Registrarse"),
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(320, 40),
+                ),
+              ),
+              if (isLoading)
+                const Center(
+                  child: SizedBox(
+                      width: 80, height: 80, child: CircularProgressIndicator()),
+                )
+            ],
+          ),
         ),
       ),
     );
