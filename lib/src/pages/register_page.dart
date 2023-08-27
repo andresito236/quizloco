@@ -65,42 +65,55 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const Icon(Icons.login, size: 100),
-            MyTextField(
-              controller: userController,
-              hintText: "Usuario",
-              obscureText: false),
-            MyTextField(
-              controller: emailController,
-              hintText: "Email",
-              obscureText: false),  
-            MyTextField(controller: passwordController,
-            hintText: "Contraseña", 
-            obscureText: true),
-            MyTextField(controller: confirmPasswordController,
-            hintText: "Confirmar contraseña", 
-            obscureText: true),
-            // Botón para registrarse
-            MyButton(onTap: () async {
-                
-                if (await register()) {
-                  Navigator.pushNamed(context, MyRoutes.home.name);
-                }
-                setState(() {
-                  isLoading = false;
-                });
-                
-              },
-             message: "Registrarse"),
-            MyButton(onTap: () {
-              Navigator.pushNamed(context, MyRoutes.login.name);
-            },
-              message: "Regresar",),
-            if (isLoading) const Center(child: SizedBox(width: 80, height: 80, child: CircularProgressIndicator()),),
-          ],
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Image(image: AssetImage('assets/test-icon.png'),),
+              MyTextField(
+                controller: userController,
+                hintText: "Usuario",
+                obscureText: false),
+              MyTextField(
+                controller: emailController,
+                hintText: "Email",
+                obscureText: false),  
+              MyTextField(controller: passwordController,
+              hintText: "Contraseña", 
+              obscureText: true),
+              MyTextField(controller: confirmPasswordController,
+              hintText: "Confirmar contraseña", 
+              obscureText: true),
+              SizedBox(height: 40,),
+              // Botón para registrarse
+              ElevatedButton(
+              onPressed:() async {
+                  if (await register()) {
+                    Navigator.pushNamed(context, MyRoutes.home.name);
+                  }
+                  setState(() {
+                    isLoading = false;
+                  });
+                },
+              child: Text("Registrarse"),
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(320, 40),
+              ),
+            ),
+            SizedBox(height: 20,),
+              ElevatedButton(
+              onPressed:() async {
+                  Navigator.pushNamed(context, MyRoutes.login.name);
+                },
+              child: Text("Regresar"),
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(320, 40),
+              ),
+            ),
+              
+              if (isLoading) const Center(child: SizedBox(width: 80, height: 80, child: CircularProgressIndicator()),),
+            ],
+          ),
         ),
       ),
     );

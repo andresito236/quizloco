@@ -26,7 +26,6 @@ class HomePage extends StatelessWidget {
           MyButton(onTap: () {
             Navigator.pushNamed(context, MyRoutes.tests.name);
           }, message: "Todos los tests"),
-          
         ],
         )),
     );
