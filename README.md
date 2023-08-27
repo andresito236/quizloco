@@ -1,8 +1,5 @@
 # quizloco
-
-Credenciales de testing:
-correo: test@example.com
-password: test123
+Registrate y empieza a crear pruebas!
 
 ## Acerca de la App
 
