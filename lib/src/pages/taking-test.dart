@@ -20,19 +20,17 @@ class _TakingTestPageState extends State<TakingTestPage> {
   Test? test;
   int? userScore;
   List<bool?>? userAnswers;
+  String testId = "";
 
   @override
   void initState() {
     super.initState();
-    _fetchTest();
+    // _fetchTest();
   }
 
   Future<void> _fetchTest() async {
     Test fetchedTest =
-        await firestoreController.getTest("mMQeWtUYRYszOLrlFnjI");
-    if (fetchedTest == null) {
-      print('loading...');
-    } else {
+        await firestoreController.getTest(testId);
       setState(() {
         test = fetchedTest;
         userAnswers = List.generate(
@@ -40,7 +38,6 @@ class _TakingTestPageState extends State<TakingTestPage> {
           (_) => null,
         );
       });
-    }
   }
 
   void submitTest() async {
@@ -86,6 +83,14 @@ class _TakingTestPageState extends State<TakingTestPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic>? params = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    setState(() {
+      testId = params!['testId'];
+    });
+
+    _fetchTest();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Taking Test'),
