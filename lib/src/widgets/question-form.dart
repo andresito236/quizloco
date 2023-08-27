@@ -201,7 +201,7 @@ class _QuestionFormState extends State<QuestionForm> {
                     );
                   }).toList(),
                 ),
-              ElevatedButton(
+              OutlinedButton(
                   onPressed: () {
                     setQuestion();
                   },

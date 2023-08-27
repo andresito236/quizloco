@@ -92,16 +92,20 @@ class _CreateTestPageState extends State<CreateTestPage> {
                       );
                     }
                   }),
-                  QuestionForm(
-                    questionController: questionController,
-                    testController: testController,
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: QuestionForm(
+                      questionController: questionController,
+                      testController: testController,
+                    ),
                   ),
-                  ElevatedButton(
+                  FilledButton(
                     onPressed: () async {
                       submitTest();
                     },
                     child: const Text('Guardar Quiz'),
                   ),
+                  const SizedBox(height: 16.0),
                 ],
               ),
             ),

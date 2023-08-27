@@ -23,6 +23,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: AuthPage(),
       routes: routes,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+        useMaterial3: true,
+      ),
     );
   }
 }

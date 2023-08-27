@@ -26,6 +26,7 @@ class _TakingTestPageState extends State<TakingTestPage> {
   void initState() {
     super.initState();
     // _fetchTest();
+    answercontroller.onClose();
   }
 
   Future<void> _fetchTest() async {

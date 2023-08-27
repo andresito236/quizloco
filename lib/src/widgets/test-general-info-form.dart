@@ -23,7 +23,7 @@ class TestGeneralInfoForm extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
-            color: const Color.fromARGB(47, 82, 154, 190),
+            color: Color.fromARGB(54, 75, 93, 200),
           ),
           child: Form(
             child: Column(

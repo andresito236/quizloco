@@ -15,7 +15,7 @@ class SubmittedQuestions extends StatelessWidget {
           padding: EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
-            color: Color.fromARGB(47, 82, 154, 190),
+            color: Color.fromARGB(54, 75, 93, 200),
           ),
           child: Column(
             children: [

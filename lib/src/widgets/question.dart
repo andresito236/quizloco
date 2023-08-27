@@ -61,7 +61,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(10),
-      color: _isQuestionEnabled ? Color.fromARGB(255, 200, 220, 239) : Colors.transparent,
+      color: _isQuestionEnabled ? null : Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -160,13 +160,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                       );
                     }).toList(),
                   ),
-                ElevatedButton(
+                  _isQuestionEnabled ? 
+                OutlinedButton(
                     onPressed: () {
                       _isQuestionEnabled ? verifyAnswer() : null;
                     },
-                    child: new Text(_isQuestionEnabled
-                        ? "Enviar Respuesta"
-                        : "Respuesta Enviada")),
+                    child: const Text("Enviar Respuesta")) : TextButton(onPressed: null, child: const Text("Respuesta Enviada")),
               ],
             )
           ],
