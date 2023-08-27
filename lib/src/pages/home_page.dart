@@ -23,6 +23,13 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
+                Navigator.pushNamed(context, MyRoutes.createTest.name);
+              },
+              child: Text('Crea un nuevo Test'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
                 Navigator.pushNamed(context, MyRoutes.myTests.name);
               },
               child: Text('Revisa qué tests has creado'),
