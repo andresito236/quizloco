@@ -4,8 +4,9 @@ class Test {
   String name;
   String description;
   List<Question> questions;
+  String creator;
 
-  Test({ required this.name, required this.description, required this.questions});
+  Test({ required this.name, required this.description, required this.questions, required this.creator});
 
   @override
   String toString() {

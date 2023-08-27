@@ -17,6 +17,7 @@ class FirestoreController {
       await testsCollection.add({
         'name': test.name,
         'description': test.description,
+        'creator': test.creator,
         'questions': test.questions
             .map((p) => {
                   'question': p.question,
@@ -41,6 +42,7 @@ class FirestoreController {
       test = Test(
           name: doc["name"],
           description: doc["description"],
+          creator: doc["creator"],
           questions: List<Question>.from(
             doc["questions"]
                 .map((p) => Question(
@@ -54,7 +56,7 @@ class FirestoreController {
                 .toList(),
           ));
     } else {
-      test = Test(name: '', description: '', questions: []);
+      test = Test(name: '', description: '', questions: [], creator: '');
     }
 
     return test;
