@@ -1,16 +1,9 @@
 # quizloco
 
-A new Flutter project.
+Credenciales de testing:
+correo: test@example.com
+password: test123
 
-## Getting Started
+## Acerca de la App
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+La aplicación tiene un sistema de usuarios, donde cada uno puede crear sus propios tests y personalizarlos a su gusto, teniendo la opción de escoger si cada pregunta es de selección múltiple, selección única o verdadero y falso. Las pruebas que realizan pueden ser publicadas para que otros usuarios también las tomen y pueden ver el ranking de los usuarios con sus notas.
