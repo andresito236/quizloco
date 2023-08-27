@@ -90,4 +90,22 @@ class FirestoreController {
   Stream<QuerySnapshot> getTestsStream() {
     return testsCollection.snapshots();
   }
+
+  Future<List> getTestAttempts(String testId) async {
+    List attempts = [];
+    QuerySnapshot queriedAttempts = await attemptsCollection.where('testId', isEqualTo: testId).
+    orderBy('score', descending: true).
+    get();
+    for (var document in queriedAttempts.docs) {
+      Map<String, dynamic> attemptData = document.data() as Map<String, dynamic>;
+      attemptData['username'] = await getUsernameById(attemptData['userId']);
+      attempts.add(attemptData);  
+    }
+    return attempts;
+  }
+
+  Future<String> getUsernameById(String id) async {
+    DocumentSnapshot user = await userCollection.doc(id).get();
+    return user['username']; 
+  }
 }

@@ -61,7 +61,7 @@ Future<List> getTestsByUserId(String userId) async {
   List tests = [];
   CollectionReference testCollection = db.collection('test');
   QuerySnapshot queriedTests =
-      await testCollection.where('user_id', isEqualTo: userId).get();
+      await testCollection.where('creator', isEqualTo: userId).get();
 
   queriedTests.docs.forEach((document) {
     Map<String, dynamic> testData = document.data() as Map<String, dynamic>;
